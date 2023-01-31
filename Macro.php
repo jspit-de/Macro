@@ -3,7 +3,7 @@
 .---------------------------------------------------------------------------.
 |  trait Macro                                                              |
 |   Version: 1.0 dev                                                        |
-|      Date: 2023-01-30                                                     |
+|      Date: 2023-01-31                                                     |
 | ------------------------------------------------------------------------- |
 | Copyright © 2023 jspit                                                    |
 ' ------------------------------------------------------------------------- '
@@ -13,23 +13,23 @@
 */
 trait Macro {
 
-    protected static $macros = [];
+    private static $macros = [];
 
     /**
      * Register a custom macro.
      *
      * @example
      * ```
-     * Dt::macro('formatHi',function(){return $this->format('H:i');});
-     * echo Dt::create()->formatHi();
+     * myClass::macro('formatHi',function(){return $this->format('H:i');});
+     * echo (new myClass)->formatHi();
      * ```
      *
-     * @param string   $name
-     * @param callable $macro
+     * @param string|array  $macroArr
+     * @param callable      $fct
      *
      * @return void
      */
-    public static function macro($macroArr, $fct = null)
+    final public static function macro($macroArr, $fct = null)
     { 
         if(!is_array($macroArr)){
         $macroArr = [$macroArr => $fct];
@@ -47,7 +47,7 @@ trait Macro {
 	 * @param  string    $name
 	 * @return boolean
 	 */
-	public static function hasMacro($name)
+	final public static function hasMacro($name)
 	{
 		return array_key_exists($name, static::$macros);
 	}
@@ -61,7 +61,7 @@ trait Macro {
 	 *
 	 * @throws \LogicException
 	 */
-    public function __call($method, $parameters)
+    final public function __call($method, $parameters)
     {
         if(array_key_exists($method,self::$macros)) {
             $fct = self::$macros[$method];
@@ -80,7 +80,7 @@ trait Macro {
 	 *
 	 * @throws \LogicException
 	 */
-    public static function __callStatic($method, $parameters)
+    final public static function __callStatic($method, $parameters)
     {
         if(array_key_exists($method,self::$macros)) {
             $fct = self::$macros[$method];
