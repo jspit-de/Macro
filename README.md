@@ -3,7 +3,7 @@ PHP Macro - Dynamically extend PHP objects
 
 ## Installation & loading
 
-- Code -> Download ZIP Macro-master.zip
+- Code -> Download ZIP Macro-main.zip
 - Extract the file Macro.php to a new Folder 
 
 ```php
